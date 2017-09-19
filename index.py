@@ -1,5 +1,5 @@
 #coding:utf-8
-from config.data_config import *
+from config.api_config import *
 from public.common.common import *
 from public.requests_handle import *
 from public.xlrd_handle import *
