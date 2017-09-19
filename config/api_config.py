@@ -8,7 +8,7 @@ common_data = {
 
 
 excel_data = {
-        'path':r'F:\work\api_System\API_Test.xlsx',
+        'path':r'API_Test.xlsx',
         'currency_sheet_name':'currency',
         'common_sheet_name':'common'
     }
