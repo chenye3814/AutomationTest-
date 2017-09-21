@@ -38,7 +38,7 @@ def var_convert_para(need_convert):
 def excel_row_handle(row_value):
 
     request_value = {}
-    request_value['instruction '] = row_value[0]
+    request_value['instruction'] = row_value[0]
     request_value['tag'] = row_value[1]
     request_value['interfacestatus'] = row_value[2]
     request_value['method'] = row_value[3]
