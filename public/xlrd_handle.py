@@ -4,11 +4,12 @@ from common.log import *
 
 class xlrd_handle():
     #初始化Excel文件路径，sheet页名称
-    def __init__(self, file_path, sheet_name):
+    def __init__(self, file_path = '', sheet_name = ''):
         self.file_path = file_path
         self.sheet_name = sheet_name
         self.workbook = None
         self.sheet = None
+
 
     #打开Excel文件
     def open_workbook(self):
