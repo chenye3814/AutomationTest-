@@ -29,6 +29,6 @@ request_result = requests_handle(method_value,url_value,body_value_json,header_v
 
 print request_result.exc_requests()
 '''
-api_requests()
-
+print api_currency_requests()
+#api_common_requests()
 print currency

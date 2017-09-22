@@ -50,17 +50,17 @@ def excel_row_handle(row_value):
         if temp_body_json != False:
             request_value['body'] = temp_body_json
         else:
-            logging.error( '接口 '.decode('utf-8') + request_value['instruction '] + ':' + request_value['tag'] + ' Body数据json格式转换异常'.decode('utf-8'))
+            logging.error( '接口 '.decode('utf-8') + request_value['instruction'] + ':' + request_value['tag'] + ' Body数据json格式转换异常'.decode('utf-8'))
             return False
     else:
-        logging.error('接口 '.decode('utf-8') + request_value['instruction '] + ':' + request_value['tag'] + ' Body数据参数替换异常'.decode('utf-8'))
+        logging.error('接口 '.decode('utf-8') + request_value['instruction'] + ':' + request_value['tag'] + ' Body数据参数替换异常'.decode('utf-8'))
         return False
     #headers转为json格式
     temp_headers_json = str_to_json(row_value[6])
     if temp_headers_json != False:
         request_value['headers'] = temp_headers_json
     else:
-        logging.error( '接口 '.decode('utf-8') + request_value['instruction '] + ':' + request_value['tag'] + ' headers数据json格式转换异常'.decode('utf-8'))
+        logging.error( '接口 '.decode('utf-8') + request_value['instruction'] + ':' + request_value['tag'] + ' headers数据json格式转换异常'.decode('utf-8'))
         return False
 
     request_value['checkpoint'] = row_value[7]
