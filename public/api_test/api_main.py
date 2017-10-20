@@ -89,7 +89,7 @@ def api_common_requests():
                     if return_data != False:
 
                         #接口返回数据判断
-                        if request_value['tag'] not in ('00000001'):
+                        if request_value['tag'] not in ('00000002'):
                             if return_data['code'] == 1:
                                 logging.info('接口轮询记录.\n\t接口介绍:\t' + request_value['instruction'] + '\n\t接口标识:\t' + request_value['tag'] + '\t轮询成功')
                                 current_exc_time = 99
@@ -99,6 +99,7 @@ def api_common_requests():
                                 currency_result = api_currency_requests()
                                 if currency_result is False:
                                     break
+                                print currency
                             else:
                                 logging.error('接口处理失败.\n\t接口介绍:\t' + request_value['instruction'] + '\n\t接口标识:\t' + request_value['tag'] + '\n\t请求方式:\t' + request_value['method'] + '\n\tURL:\t' + request_value['url'] + '\n\tBody:\t' + str(request_value['body']) + '\n\tHeaders:\t' + str(request_value['headers']) + '\n\t接口返回数据:\t'.decode('utf-8') + str(return_data) + '\n\t第' + str(current_exc_time) + '次轮询失败，跳过当前接口')
                                 current_exc_time = 99

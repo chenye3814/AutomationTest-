@@ -53,3 +53,21 @@ def dict_filter_columns(dict_data, array_need = ['*']):
         else:
             logging.error("提供需求字段错误,需list格式数据.\n\t当前Dict数据:\t".decode('utf-8')  + str(array_need) + "\n\t当前数据格式为:\t".decode('utf-8') + str(type(array_need)))
             return False
+
+#二位数组排序,二维数组中第column_num列的值排序， row_num表示从第几行开始排序
+def array_sec_sort(array_b, column_num, row_num = 0):
+    array_temp = array_b
+    array_len = len(array_temp)
+    if array_len == 1:
+        return array_temp
+    else:
+        if column_num < len(array_b[0]):
+            for i in range(0, array_len - 1):
+                for j in range(row_num, array_len - 1 - i):
+                    if array_temp[j][column_num] < array_temp[j+1][column_num]:
+                        temp_num = array_temp[j]
+                        array_temp[j] = array_temp[j+1]
+                        array_temp[j+1] = temp_num
+            #return array_temp
+        else:
+            print "比较的数出错啦".decode('utf-8')
