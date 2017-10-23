@@ -2,6 +2,7 @@
 from public.common.date import *
 from public.common.common import *
 from public.mysql_handle import *
+from public.report.report_currency import *
 
 #神预算统计数据方式配置
 divine_budget_config = {
@@ -42,8 +43,8 @@ divine_budget_config = {
     },
     #自选股板块对应的时间段内，添加或取消该股票 （此处过滤新股，带新股标签的股票不计算神力值增减）
     "zxg":{
-        "condition1": (1, '自选股版块添加一次，神力值 + 1'),
-        "condition2":(-1, '自选股版块取消一次，神力值 - 1')
+        "condition1": (1, '自选股版块每添加一次，神力值 + 1'),
+        "condition2":(-1, '自选股版块每取消一次，神力值 - 1')
     }
 }
 
@@ -152,94 +153,108 @@ def add_sf(db_link,date_time):
                 current_value.append(divine_budget_config['sf']['condition3'][0])
                 current_value.append(str(sql_result[1][i][2]) + ' ' + divine_budget_config['sf']['condition3'][1])
             temp_value.append(current_value)
-    #出局情况处理需补充，等开完记录出局时间后添加
+    #出局情况处理需补充，等开发记录出局时间后添加
 
 
 #自选股神力值处理
 def add_zxg(db_link,date_time):
-    pass
+    #处理自选股指定时间内添加统计
+    sql = 'SELECT SUBSTR(stock_member_stock.stock_code,-6),COUNT(*) FROM stock_member_stock WHERE SUBSTR(stock_code,-8,2) NOT IN (\'sz\',\'sh\') AND time > UNIX_TIMESTAMP(\'' + date_time[0] + '\') AND time <= UNIX_TIMESTAMP(\'' + date_time[1] + '\') GROUP BY stock_code'
+    sql_result = db_link.exc_sql(sql)
+    if sql_result[0] > 0:
+        for i in range(0, sql_result[0]):
+            current_value = []
+            current_value.append(sql_result[1][i][0])
+            current_value.append(sql_result[1][i][1] * divine_budget_config['zxg']['condition1'][0])
+            current_value.append('统计时间内共计添加自选股次数为 ' + str(sql_result[1][i][1]) + ' 次 ' + divine_budget_config['zxg']['condition1'][1])
+            temp_value.append(current_value)
+    #处理自选股指定时间内取消统计，需开发记录取消时间后才可添加
 
+#神力值功能主流程
+def divine_budget_main():
+    date_time = set_date_time()
+    if date_time != 0:
 
-date_time = set_date_time()
-if date_time != 0:
+        db_link = mysql_handle('192.168.10.230', 3306, 'stocksir', 'stocksir1704!')
+        db_link.mysql_connect()
 
-    db_link = mysql_handle('192.168.10.230', 3306, 'stocksir', 'stocksir1704!')
-    db_link.mysql_connect()
+        if db_link.status == 1:
+            db_link.mysql_select_db('stocksir')
 
-    if db_link.status == 1:
-        db_link.mysql_select_db('stocksir')
+            #股机神力值处理
+            add_gj(db_link, date_time)
+            #擒牛决神力值处理
+            add_qnj(db_link, date_time)
+            #股池神力值处理
+            add_gc(db_link, date_time)
+            #锦囊神力值处理
+            add_jn(db_link, date_time)
+            #自选股神力值处理
+            add_zxg(db_link, date_time)
 
-        #股机神力值处理
-        add_gj(db_link, date_time)
-        #擒牛决神力值处理
-        add_qnj(db_link, date_time)
-        #股池神力值处理
-        add_gc(db_link, date_time)
-        #锦囊神力值处理
-        add_jn(db_link, date_time)
-        #自选股神力值处理
-        add_zxg(db_link, date_time)
+            db_link.mysql_close_db()
 
-        db_link.mysql_close_db()
+        db_link = mysql_handle('192.168.10.210', 3306, 'root', '123456!@#')
+        db_link.mysql_connect()
 
-    db_link = mysql_handle('192.168.10.210', 3306, 'root', '123456!@#')
-    db_link.mysql_connect()
+        if db_link.status == 1:
+            db_link.mysql_select_db('agency')
 
-    if db_link.status == 1:
-        db_link.mysql_select_db('agency')
+            #第三方神力值处理
+            #add_sf(db_link, date_time)
 
-        #第三方神力值处理
-        add_sf(db_link, date_time)
+            db_link.mysql_close_db()
 
-        db_link.mysql_close_db()
+        if len(temp_value) != 0:
+            #所有股票唯一存放stock_list
+            stock_temp_list = []
+            for i in range(0,len(temp_value)):
+                stock_temp_list.append(temp_value[i][0])
+            stock_list = list(set(stock_temp_list))
 
-    if len(temp_value) != 0:
-        #所有股票唯一存放stock_list
-        stock_temp_list = []
-        for i in range(0,len(temp_value)):
-            stock_temp_list.append(temp_value[i][0])
-        stock_list = list(set(stock_temp_list))
+            #记录合并保存
+            #保存记录的模型建立
+            calculate_list = []
+            for i in range(0,len(stock_list)):
+                temp_list = []
+                temp_list.append(stock_list[i])
+                temp_list.append(0)
+                temp_list.append([])
+                calculate_list.append(temp_list)
+            #记录更新到模型中
+            for i in range(0,len(temp_value)):
+                #当前记录再模型中的位置，即list中的位置,temp_value与calculate_list的位置是一致的
+                num = stock_list.index(temp_value[i][0])
+                #神力值累加
+                calculate_list[num][1] += temp_value[i][1]
+                #神力值累计明细保存
+                calculate_list[num][2].append(temp_value[i][2])
+            #按神力值记录排序
+            array_sec_sort(calculate_list,1)
 
-        #记录合并保存
-        #保存记录的模型建立
-        calculate_list = []
-        for i in range(0,len(stock_list)):
-            temp_list = []
-            temp_list.append(stock_list[i])
-            temp_list.append(0)
-            temp_list.append([])
-            calculate_list.append(temp_list)
-        #记录更新到模型中
-        for i in range(0,len(temp_value)):
-            #当前记录再模型中的位置，即list中的位置,temp_value与calculate_list的位置是一致的
-            num = stock_list.index(temp_value[i][0])
-            #神力值累加
-            calculate_list[num][1] += temp_value[i][1]
-            #神力值累计明细保存
-            calculate_list[num][2].append(temp_value[i][2])
-        #按神力值记录排序
-        array_sec_sort(calculate_list,1)
+            #报告文件生成
+            html_str_begin = '<html><style> li{font-size:9px} td{vertical-align:middle;text-align:center} td li{text-align:left} .trtitle {font-size:20px;background-color:#FFFF00}</style><head><meta http-equiv="Content-type" content="text/html; charset=utf-8" /><title>结果记录</title></head><body><table border=1px align=center>'
+            html_str_middle = '<tr><td colspan=4>从 ' + date_time[0] + ' 至 ' + date_time[1] + ' 神力值统计记录</td></tr><tr class=trtitle><td>序号</td><td>股票代码</td><td>神力值</td><td>神力值累计明细</td></tr>'
+            html_str_end = '</table></body></html>'
+            '''
+            for i in range(0,len(calculate_list)):
+                html_str_middle += '<tr>'
+                html_str_middle += '<td>' + calculate_list[i][0] + '</td>'
+                html_str_middle += '<td>' + str(calculate_list[i][1]) + '</td>'
+                html_str_middle += '<td>'
+                for j in range(0,len(calculate_list[i][2])):
+                    html_str_middle += '<li>' + calculate_list[i][2][j] + '</li>'
+                html_str_middle += '</td></tr>'
+            html_str = html_str_begin + html_str_middle + html_str_end
+            '''
+            html_str_middle += set_table_value(calculate_list, 1)
+            html_str = html_str_begin + html_str_middle + html_str_end
 
-        #报告文件生成
-        html_str_begin = '<html><style> li{font-size:9px} td{vertical-align:middle;text-align:center} td li{text-align:left} .trtitle {font-size:20px;background-color:#FFFF00}</style><head><meta http-equiv="Content-type" content="text/html; charset=utf-8" /><title>结果记录</title></head><body><table border=1px align=center>'
-        html_str_middle = '<tr><td colspan=3>从 ' + date_time[0] + ' 至 ' + date_time[1] + ' 神力值统计记录</td></tr><tr class=trtitle><td>股票代码</td><td>神力值</td><td>神力值累计明细</td></tr>'
-        html_str_end = '</table></body></html>'
+            fp = open(r"C:\Users\Administrator\Desktop\report.html", 'w')
+            fp.write(html_str)
+            fp.close()
 
-        for i in range(0,len(calculate_list)):
-            html_str_middle += '<tr>'
-            html_str_middle += '<td>' + calculate_list[i][0] + '</td>'
-            html_str_middle += '<td>' + str(calculate_list[i][1]) + '</td>'
-            html_str_middle += '<td>'
-            for j in range(0,len(calculate_list[i][2])):
-                html_str_middle += '<li>' + calculate_list[i][2][j] + '</li>'
-            html_str_middle += '</td></tr>'
-        html_str = html_str_begin + html_str_middle + html_str_end
-
-        fp = open(r"C:\Users\Administrator\Desktop\report.html", 'w')
-        fp.write(html_str)
-        fp.close()
-
+        else:
+            print '无满足条件股票'.decode('utf-8')
     else:
-        print '无满足条件股票'.decode('utf-8')
-else:
-    print '未成功设置查询时间.退出'.decode('utf-8')
+        print '未成功设置查询时间.退出'.decode('utf-8')
