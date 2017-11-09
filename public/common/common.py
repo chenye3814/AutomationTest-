@@ -2,6 +2,7 @@
 import md5
 import json
 from ..common.log import *
+from config.api_config import *
     
 #字符串md5加密
 def get_md5(need_str):
@@ -71,3 +72,27 @@ def array_sec_sort(array_b, column_num, row_num = 0):
             #return array_temp
         else:
             print "比较的数出错啦".decode('utf-8')
+
+#返回dict中的三层内的key
+def get_keys(need_dict):
+    if type(need_dict) != dict:
+        print '非字典格式数据，无法处理!'.decode('utf-8')
+        return None
+    else:
+        return_keys = []
+        for i in need_dict:
+            return_keys.append(i)
+            if type(need_dict[i]) == dict:
+                for j in need_dict[i]:
+                    return_keys.append(j)
+                    if type(need_dict[i][j]) == dict:
+                        for k in need_dict[i][j]:
+                            return_keys.append(k)
+        return return_keys
+
+#设置hosts
+def modify_hosts(need_host):
+    fp = open(r"C:\Windows\System32\drivers\etc\hosts", 'w')
+    fp.write(need_host)
+    fp.close()
+    print 'Hosts设置成功'.decode('utf-8')

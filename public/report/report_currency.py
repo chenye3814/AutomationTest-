@@ -40,7 +40,7 @@ def set_table_value(value_list, set_num = 0):
         logging.warning('数据列表提交错误，应为列表类型数据！')
         return 0
 
-class HTML_report():
+class html_report():
 
     def __init__(self):
         self.html = ''
@@ -61,4 +61,13 @@ class HTML_report():
         self.table = table
 
     def set_body(self):
+        pass
+
+    def set_div(self):
+        pass
+
+    def set_content(self):
+        pass
+
+    def create_html(self):
         pass
