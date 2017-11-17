@@ -4,3 +4,9 @@ del public\*.pyc
 del public\common\*.pyc
 del public\api_test\*.pyc
 del config\*.pyc
+del scripts\*.pyc
+del scripts\single_scripts\*.pyc
+del public\report\*.pyc
+del public\selenium_test\*.pyc
+del public\selenium_test\CRM\*.pyc
+del example\*.pyc
