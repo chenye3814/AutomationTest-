@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a7c4284-20fe-41f9-891f-8431143f7373" name="默认的" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117101907.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117102913.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117104129.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117104617.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117105200.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117112741.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117134804.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117135757.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/report/HTMLReport20171117140434.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/selenium_test/CRM/CRM_Process.py" afterPath="$PROJECT_DIR$/public/selenium_test/CRM/CRM_Process.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/清理pyc文件.bat" afterPath="$PROJECT_DIR$/清理pyc文件.bat" />
-    </list>
+    <list default="true" id="7a7c4284-20fe-41f9-891f-8431143f7373" name="默认的" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +169,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -431,7 +418,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12100213" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
