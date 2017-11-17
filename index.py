@@ -25,13 +25,15 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
 
     #apiTestCase.
-
+    '''
     apiTestCase.loop_create_function(['00000004','00000005','00000006'])
     aaa = apiTestCase("test_api_index")
     print dir(apiTestCase)
+    '''
     #print apiTestCase.__class__.__name__
 
-    tests = [apiTestCase("test_api_index","00000004"), apiTestCase("test_show"),apiTestCase("test_row"),apiTestCase("test_api_index","00000003"),apiTestCase("test_111"),apiTestCase("test_111"),apiTestCase("test_00000001",'00000004',1)]
+    #tests = [apiTestCase("test_api_index","00000004"), apiTestCase("test_show"),apiTestCase("test_row"),apiTestCase("test_api_index","00000003"),apiTestCase("test_111"),apiTestCase("test_111"),apiTestCase("test_00000001",'00000004',1)]
+    tests = [apiTestCase("test_show")]
     suite.addTests(tests)
     '''
     runner = unittest.TextTestRunner(verbosity=2)

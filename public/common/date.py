@@ -1,5 +1,12 @@
 #coding:utf-8
 import re
+import time
+import datetime
+
+#时间戳转换为时间
+def TimestampToTime(timestamp):
+    timeStruct = time.localtime(timestamp)
+    return time.strftime('%Y-%m-%d %H:%M:%S',timeStruct)
 
 #计算指定年月的最后一天的日期
 def get_day(date):

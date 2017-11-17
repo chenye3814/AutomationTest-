@@ -21,6 +21,6 @@ currency = {
     }
 
 
-hosts_config = { "Intranet":""
+hosts_config = { "Intranet":"",
                  "Extranet":""
 }
