@@ -42,14 +42,15 @@ class CRM_Process(unittest.TestCase):
         sleep(1)
         driver_process_except('driver.save_screenshot(r"' + snapshot_path + '\\' + str(name).split('test_')[1] + '_' + re.sub('[:]', '', str(datetime.datetime.now()).split(' ')[1].split('.')[0]) + '.png")')
 
-
     #浏览器打开CRM
     def test_open_url(self):
+        '''打开CRM系统'''
         driver_process_except('driver.get("http://crm.guxiansheng.cn/")')
         self.check_process_status()
 
     #CRM登录
     def test_login(self):
+        '''CRM登录流程执行'''
         self.check_process_status()
         driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[1]/input").clear()')
         driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[1]/input").send_keys(\'admin\')')
@@ -60,9 +61,9 @@ class CRM_Process(unittest.TestCase):
         self.save_snapshot(sys._getframe().f_code.co_name)
         self.check_process_status()
 
-
     #CRM权限管理
     def test_power_manager(self):
+        '''权限管理流程执行'''
         self.check_process_status()
         driver_process_except('driver.find_element_by_css_selector(".show-nav" and \'[data-title="权限管理"]\').click()')
         self.save_snapshot(sys._getframe().f_code.co_name)
@@ -85,10 +86,12 @@ class CRM_Process(unittest.TestCase):
         sleep(5)
         driver_process_except('driver.find_element_by_xpath(".//*[@id=\'header\']/div[1]/div[2]/a[2]").click()')
         self.save_snapshot(sys._getframe().f_code.co_name)
+        #driver_process_except('driver.refresh()')
         self.check_process_status()
 
     #CRM账号管理,文件上传模拟
     def test_account_manager(self):
+        '''账号管理流程执行'''
         self.check_process_status()
         driver_process_except('driver.find_element_by_css_selector(".show-nav" and \'[data-title="账号管理"]\').click()')
         self.save_snapshot(sys._getframe().f_code.co_name)
@@ -103,9 +106,11 @@ class CRM_Process(unittest.TestCase):
         driver_process_except('driver.find_element_by_css_selector(".cancel").click()')
         driver_process_except('driver.find_element_by_xpath(".//*[@id=\'header\']/div[1]/div[2]/a[2]").click()')
         self.save_snapshot(sys._getframe().f_code.co_name)
+        #driver_process_except('driver.refresh()')
         self.check_process_status()
 
     def test_driver_close(self):
+        '''浏览器窗口关闭'''
         sleep(5)
         self.save_snapshot(sys._getframe().f_code.co_name)
         driver_process_except('driver.close()')
