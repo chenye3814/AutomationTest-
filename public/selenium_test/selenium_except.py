@@ -9,6 +9,7 @@
 from config.selenium_config import *
 from time import sleep
 
+
 #流程异常处理
 def driver_process_except(driver_process_str, driver = driver ,loop_num = 10, sleep_time = 1,tag = status_tag):
     if tag['status'] == 1:

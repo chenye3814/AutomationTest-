@@ -13,14 +13,14 @@ if __name__ == '__main__':
 
     #用例流程添加
     tests = [CRM_Process("test_open_url"),
+             #CRM_Process("test_login"),
+             #CRM_Process("test_power_manager"),
              CRM_Process("test_login"),
-             CRM_Process("test_power_manager"),
-             CRM_Process("test_login"),
-             CRM_Process("test_account_manager"),
+             #CRM_Process("test_account_manager"),
              CRM_Process("test_driver_close")
              ]
     suite.addTests(tests)
-
+    
     #用例执行，生成报告
     with open(report_file_path, 'w') as report_f:
         runner = HTMLTestRunner.HTMLTestRunner(
@@ -30,9 +30,10 @@ if __name__ == '__main__':
                     verbosity=2
                 )
         runner.run(suite)
-
+    
     #邮件发送
     email_config['receiver'] = 'liuxu@guxiansheng.cn'
     email_config['attachment'] = [report_file_path]
     email_config['mail_body'] = 'CRM系统自动化测试报告邮件内容'
     send_email_report(email_config)
+    

@@ -33,6 +33,7 @@ class CRM_Process(unittest.TestCase):
         #modify_hosts(hosts_config['Extranet'])
         #杀掉geckodriver.exe进程
         os.system('taskkill -f -im geckodriver.exe')
+        os.system('taskkill -f -im chromedriver.exe')
         #pass
 
     def check_process_status(self):
@@ -98,7 +99,7 @@ class CRM_Process(unittest.TestCase):
         driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div[1]/form/div/div/div[11]/a[1]").click()')
         driver_process_except('driver.find_element_by_css_selector("#fileUp").click()')
         #AutoIt实现windows操作模拟
-        driver_process_except('os.system("C:\Users\Administrator\Desktop\FileUp.exe")')
+        driver_process_except('os.system("C:\Users\Administrator\Desktop\Bbb.exe")')
         self.save_snapshot(sys._getframe().f_code.co_name)
         self.assertEqual(driver_process_except('driver.find_element_by_css_selector(".file-btn").text'), '修改')
         driver_process_except('driver.find_element_by_css_selector(".ok").click()')
