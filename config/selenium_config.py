@@ -1,25 +1,8 @@
 #coding:utf-8
-from selenium import webdriver
-import os
-import re
-import datetime
-import logging
-
-
-
-#流程状态控制
-status_tag = {
-    "status" : 1
+selenium_config = {
+    #'driver': '',
+    #'snapshot_path' : '',
+    #'report_file_path' : ''
 }
-driver = webdriver.Chrome()
-#driver = webdriver.Firefox()
-#driver = webdriver.Ie()
-driver.implicitly_wait(10)
-#logging.basicConfig(level=logging.INFO)
 
-
-# 设置快照和报告路径
-date_str = re.sub('[- :]', '', str(datetime.datetime.now()).split('.')[0])
-snapshot_path = os.getcwd() + '\\snapshot\\CRM\\CRM' + date_str
-report_file_path = os.getcwd() + '\\report\\HTMLReport' + date_str + '.html'
 
