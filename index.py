@@ -15,27 +15,27 @@ import unittest
 if __name__ == '__main__':
 
     # 神力值
-    #divine_budget_main()
+    divine_budget_main()
 
     # 接口轮询
     #api_currency_requests()
     # print currency
     # api_common_requests()
-
+    '''
     suite = unittest.TestSuite()
 
     #apiTestCase.
-    '''
+    
     apiTestCase.loop_create_function(['00000004','00000005','00000006'])
     aaa = apiTestCase("test_api_index")
     print dir(apiTestCase)
-    '''
+    
     #print apiTestCase.__class__.__name__
 
     #tests = [apiTestCase("test_api_index","00000004"), apiTestCase("test_show"),apiTestCase("test_row"),apiTestCase("test_api_index","00000003"),apiTestCase("test_111"),apiTestCase("test_111"),apiTestCase("test_00000001",'00000004',1)]
     tests = [apiTestCase("test_show")]
     suite.addTests(tests)
-    '''
+    
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
     
@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
 
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(apiTestCase))
-    '''
+    
     with open('HTMLReport.html', 'w') as f:
         runner = HTMLTestRunner.HTMLTestRunner(stream=f,
                                 title='测试报告',
@@ -51,4 +51,4 @@ if __name__ == '__main__':
                                 verbosity=2
                                 )
         runner.run(suite)
-
+    '''

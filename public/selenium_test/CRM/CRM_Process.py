@@ -49,9 +49,9 @@ class CRM_Process(unittest.TestCase):
         #恢复Hosts
         #modify_hosts(hosts_config['Extranet'])
         #杀掉geckodriver.exe或者chromedriver.exe进程
-        if selenium_config['browser'] == 'firefox':
+        if selenium_config['browser'] == 'Firefox':
             os.system('taskkill -f -im geckodriver.exe')
-        elif selenium_config['browser'] == 'chrome':
+        elif selenium_config['browser'] == 'Chrome':
             os.system('taskkill -f -im chromedriver.exe')
 
     def check_process_status(self):
@@ -66,6 +66,7 @@ class CRM_Process(unittest.TestCase):
     def test_open_url(self):
         '''打开CRM系统'''
         self.driver_process_except('driver.get("http://crm.guxiansheng.cn/")')
+        self.driver_process_except('driver.set_window_size(1440, 900)')
         self.check_process_status()
 
     #CRM登录
@@ -118,9 +119,9 @@ class CRM_Process(unittest.TestCase):
         self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div[1]/form/div/div/div[11]/a[1]").click()')
         self.driver_process_except('driver.find_element_by_css_selector("#fileUp").click()')
         #AutoIt实现windows操作模拟
-        if selenium_config['browser'] == 'chrome':
+        if selenium_config['browser'] == 'Chrome':
             self.driver_process_except('os.system("C:\Users\Administrator\Desktop\Bbb.exe")')
-        elif selenium_config['browser'] == 'firefox':
+        elif selenium_config['browser'] == 'Firefox':
             self.driver_process_except('os.system("C:\Users\Administrator\Desktop\FileUp.exe")')
         self.save_snapshot(sys._getframe().f_code.co_name)
         self.assertEqual(self.driver_process_except('driver.find_element_by_css_selector(".file-btn").text'), '修改')
