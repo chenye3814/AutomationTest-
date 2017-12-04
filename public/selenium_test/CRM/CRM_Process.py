@@ -6,12 +6,14 @@ from time import sleep
 from config.selenium_config import selenium_config
 import sys
 import os
+#from selenium import webdriver
 
 class CRM_Process(unittest.TestCase):
     #流程控制
     status_tag = {
         "status": 1
     }
+    #driver = webdriver.Firefox()
 
     def __init__(self, methodName):
         super(CRM_Process,self).__init__(methodName)
@@ -74,9 +76,11 @@ class CRM_Process(unittest.TestCase):
         '''CRM登录流程执行'''
         self.check_process_status()
         self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[1]/input").clear()')
-        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[1]/input").send_keys(\'18784527410\')')
+        #self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[1]/input").send_keys(\'18784527410\')')
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[1]/input").send_keys(\'13888888888\')')
         self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[2]/input").clear()')
-        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[2]/input").send_keys(\'527410\')')
+        #self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[2]/input").send_keys(\'527410\')')
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[2]/input").send_keys(\'123456\')')
         self.save_snapshot(sys._getframe().f_code.co_name)
         self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div/div/form/div[3]/button").click()')
         self.save_snapshot(sys._getframe().f_code.co_name)
@@ -131,6 +135,24 @@ class CRM_Process(unittest.TestCase):
         self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'header\']/div[1]/div[2]/a[2]").click()')
         self.save_snapshot(sys._getframe().f_code.co_name)
         #self.driver_process_except('driver.refresh()')
+        self.check_process_status()
+
+    def test_message_manager(self):
+        '''消息管理流程执行'''
+        self.check_process_status()
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'header\']/div[2]/div[1]/ul/li[1]/a").click()')
+        self.check_process_status()
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div[2]/div[2]/div[1]/ul/li[2]").click()')
+        sleep(3)
+        self.save_snapshot(sys._getframe().f_code.co_name)
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div[2]/div[2]/div[1]/ul/li[3]").click()')
+        sleep(3)
+        self.save_snapshot(sys._getframe().f_code.co_name)
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'app\']/div[2]/div[2]/div[1]/ul/li[1]").click()')
+        sleep(3)
+        self.save_snapshot(sys._getframe().f_code.co_name)
+        self.driver_process_except('driver.find_element_by_xpath(".//*[@id=\'header\']/div[1]/div[2]/a[2]").click()')
+        self.save_snapshot(sys._getframe().f_code.co_name)
         self.check_process_status()
 
     def test_driver_close(self):

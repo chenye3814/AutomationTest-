@@ -40,10 +40,12 @@ def selenium_common(browser, project):
 
         # 用例流程添加
         tests = [CRM_Process("test_open_url"),
+                 #CRM_Process("test_login"),
+                 #CRM_Process("test_power_manager"),
+                 #CRM_Process("test_login"),
+                 #CRM_Process("test_account_manager"),
                  CRM_Process("test_login"),
-                 CRM_Process("test_power_manager"),
-                 CRM_Process("test_login"),
-                 CRM_Process("test_account_manager"),
+                 CRM_Process("test_message_manager"),
                  CRM_Process("test_driver_close")
                  ]
         suite.addTests(tests)
@@ -57,12 +59,13 @@ def selenium_common(browser, project):
                 verbosity=2
             )
             runner.run(suite)
-
+        '''
         #邮件发送
         email_config['receiver'] = 'liuxu@guxiansheng.cn'
         email_config['attachment'] = [selenium_config['report_file_path']]
         email_config['mail_body'] = 'CRM系统自动化测试报告邮件内容'
+        email_config['password'] = ''
         send_email_report(email_config)
-
+        '''
     else:
         print 'driver配置失败，退出执行'.decode('utf-8')

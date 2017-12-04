@@ -5,7 +5,8 @@ from public.requests_handle import *
 from public.xlrd_handle import *
 from public.api_test.api_global import *
 from public.api_test.api_main import *
-from scripts.single_scripts.divine_budget import  *
+from scripts.single_scripts.divine_budget import divine_budget_main
+from scripts.single_scripts.publish_jn import create_jn
 from public.report.report_currency import *
 from public.api_test.api_test_case import  *
 import HTMLTestRunner
@@ -15,7 +16,10 @@ import unittest
 if __name__ == '__main__':
 
     # 神力值
-    divine_budget_main()
+    #divine_budget_main()
+
+    #锦囊发布
+    create_jn(3)
 
     # 接口轮询
     #api_currency_requests()

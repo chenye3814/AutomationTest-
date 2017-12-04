@@ -10,7 +10,7 @@ email_config = {
     #发件人账号
     "username" : 'liuxu@guxiansheng.cn',
     #发件人密码
-    "password" : '123456',
+    "password" : '',
     #邮件标题
     "mail_title" : '自动化测试报告',
     #邮件内容
